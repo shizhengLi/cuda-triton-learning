@@ -79,15 +79,42 @@ cuda-triton-learning/
 │   └── flash_v2/         # Flash Attention v2 实现
 │       ├── cuda/         # CUDA 实现
 │       └── triton/       # Triton 实现
+├── tiny-flash-attention/ # 参考项目 (git submodule)
 ├── benchmarks/           # 性能测试代码
 └── utils/                # 工具函数
 ```
 
 ## 参考资源
 
+### 官方文档与论文
 - [CUDA 编程指南](https://docs.nvidia.com/cuda/cuda-c-programming-guide/)
 - [Flash Attention 论文](https://arxiv.org/abs/2205.14135)
 - [Flash Attention 2 论文](https://arxiv.org/abs/2307.08691)
 - [Triton 文档](https://triton-lang.org/)
 - [OpenAI Triton 教程](https://github.com/openai/triton)
-- [FlashAttention GitHub](https://github.com/HazyResearch/flash-attention) 
+- [FlashAttention GitHub](https://github.com/HazyResearch/flash-attention)
+
+### 参考项目
+- [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention) - 本项目的重要参考，提供了 Python、Triton、CUDA、CuTLASS 等多种 Flash Attention 实现
+
+## 致谢
+
+特别感谢 [@66RING](https://github.com/66RING) 开发的 [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention) 项目。该项目为我们提供了宝贵的学习资源和参考实现，包含了从基础 Python 实现到高性能 CUDA/CuTLASS 实现的完整示例，对本学习项目的设计和开发具有重要的指导意义。
+
+## 使用参考项目
+
+本项目已将 tiny-flash-attention 作为 git submodule 集成：
+
+```bash
+# 初始化和更新 submodule
+git submodule update --init --recursive
+
+# 查看参考项目内容
+cd tiny-flash-attention
+ls
+```
+
+您可以通过学习 `tiny-flash-attention/` 目录下的代码来：
+- 对比不同实现方式的优劣
+- 理解从基础到高性能实现的演进过程
+- 获得更多实现思路和优化技巧
