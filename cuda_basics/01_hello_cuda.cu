@@ -35,3 +35,17 @@ int main()
 
     return 0;
 } 
+
+// 运行方法
+// nvcc 01_hello_cuda.cu -o hello_cuda
+// ./hello_cuda
+// 输出：
+// Hello from CPU!
+// Hello from GPU, thread 0!
+// Hello from GPU, thread 1!
+// Hello from GPU, thread 2!
+// Hello from GPU, thread 3!
+// Hello from GPU, thread 4!
+// Hello from GPU, thread 5!
+// Hello from GPU, thread 6!
+// Hello from GPU, thread 7!
