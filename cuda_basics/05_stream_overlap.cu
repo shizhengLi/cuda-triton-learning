@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cuda_runtime.h>
-#include <time.h>
+//#include <time.h>
 
 // 简单的计算密集型内核
 __global__ void computeIntensive(float *input, float *output, int n, int iterations) {
