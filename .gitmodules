@@ -1,3 +1,6 @@
 [submodule "tiny-flash-attention"]
 	path = tiny-flash-attention
 	url = https://github.com/66RING/tiny-flash-attention.git
+[submodule "FlashMLA"]
+	path = FlashMLA
+	url = https://github.com/deepseek-ai/FlashMLA.git
