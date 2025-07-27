@@ -1,10 +1,12 @@
 # Flash Attention 深度学习指南
 
-基于 [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention) 和 [FlashMLA](https://github.com/deepseek-ai/FlashMLA) 项目的深度学习和分析文档集合。
+基于 [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention) 项目的深度学习和分析文档集合。
+
+**注意**：FlashMLA 相关内容已移至专门的 [FlashMLA 学习指南](../flashmla_study/)，CuTLASS 相关内容请参考 [CuTLASS 学习指南](../cutlass_study/)。
 
 ## 📚 学习文档概览
 
-本学习指南包含五个相互关联的文档，从理论基础到生产实践，提供了完整的 Flash Attention 学习路径：
+本学习指南包含四个核心文档，专注于 Flash Attention 算法本身的深度分析：
 
 ### 🔬 [01. Flash Attention 理论原理详解](./01_flash_attention_theory.md)
 
@@ -79,24 +81,6 @@
 性能分析 → 优化策略 → 工程实践 → 前沿探索
 ```
 
-### 🏭 [05. FlashMLA 生产级实现分析](./05_flashmla_production_analysis.md) **NEW!**
-
-**核心内容**：
-- DeepSeek FlashMLA 的 MLA 架构解析
-- 生产级高性能实现的核心技术
-- Hopper GPU 架构的深度优化
-- 变长序列服务的工程实践
-
-**适合读者**：
-- 希望了解最新生产级实现的开发者
-- 需要部署高性能推理系统的工程师
-- 对最新 GPU 架构优化感兴趣的研究者
-
-**学习重点**：
-```
-MLA 架构 → 生产优化 → 硬件适配 → 工程实践
-```
-
 ## 🎯 建议学习路径
 
 ### 初学者路径（算法理解为主）
@@ -106,17 +90,17 @@ MLA 架构 → 生产优化 → 硬件适配 → 工程实践
 
 ### 进阶路径（实现能力为主）
 ```
-01 理论原理 → 03 实现分析 (全部) → 04 优化指南 → 05 FlashMLA 分析 → 02 版本对比
-```
-
-### 专家路径（生产优化为主）
-```
-05 FlashMLA 分析 → 04 优化指南 → 03 实现分析 (CUDA部分) → 02 版本对比 → 01 理论原理
+01 理论原理 → 03 实现分析 (全部) → 04 优化指南 → 02 版本对比
 ```
 
 ### 研究路径（前沿探索为主）
 ```
-01 理论原理 → 02 版本对比 → 05 FlashMLA 分析 → 04 优化指南 → 03 实现分析
+01 理论原理 → 02 版本对比 → 04 优化指南 → 03 实现分析
+```
+
+### 工程路径（生产应用为主）
+```
+03 实现分析 → 04 优化指南 → FlashMLA 学习指南 → CuTLASS 学习指南
 ```
 
 ## 📁 配套资源
@@ -127,8 +111,7 @@ MLA 架构 → 生产优化 → 硬件适配 → 工程实践
 ├── 01_theory.md           ←→    理论基础 (通用)
 ├── 02_v1_vs_v2.md         ←→    Flash Attention 论文
 ├── 03_implementation.md   ←→    tiny-flash-attention/
-├── 04_optimization.md     ←→    优化实践 (通用)
-└── 05_flashmla.md         ←→    FlashMLA/
+└── 04_optimization.md     ←→    优化实践 (通用)
 ```
 
 ### 实际项目位置
@@ -138,11 +121,25 @@ MLA 架构 → 生产优化 → 硬件适配 → 工程实践
 │   ├── flash_attention_py/   # Python 和 Triton 实现
 │   ├── flash_attention_cuda/ # CUDA 实现
 │   └── flash_attention_cutlass/ # CuTLASS 实现
-└── FlashMLA/                  # DeepSeek 生产级实现
-    ├── csrc/                  # CUDA C++ 核心
-    ├── flash_mla/             # Python 接口
-    └── benchmark/             # 性能测试
+├── FlashMLA/                  # DeepSeek 生产级实现
+└── cutlass_basics/            # CuTLASS 学习示例
 ```
+
+## 🔗 相关学习指南
+
+### [FlashMLA 学习指南](../flashmla_study/)
+**专注于**：DeepSeek 的生产级 MLA 实现
+- MLA 架构深度解析
+- 生产环境优化技术
+- Hopper GPU 特化优化
+- 变长序列服务实践
+
+### [CuTLASS 学习指南](../cutlass_study/)
+**专注于**：CuTLASS 3.x 高性能编程
+- CuTe 张量编程范式
+- TMA 内存加速器
+- Swizzling 优化技术
+- FlashMLA 实现基础
 
 ## 🛠️ 实践建议
 
@@ -155,67 +152,15 @@ conda activate agent
 cd ../../../tiny-flash-attention/flash_attention_py
 make
 
-# 测试 FlashMLA (需要 Hopper GPU)
-cd ../../../FlashMLA
-python tests/test_flash_mla.py
+# 测试项目中的实现
+cd ../../../flash_attention/naive
+python naive_attention.py
 ```
 
 ### 对比学习实验
 ```python
-# 性能对比实验设计
-import torch
-import time
-
-def benchmark_tiny_python(seq_len, head_dim, num_heads):
-    """Benchmark tiny-flash-attention Python implementation"""
-    from tiny_flash_attn import flash_attn_v1
-    q = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    k = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    v = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    return benchmark(flash_attn_v1, q, k, v)
-
-def benchmark_tiny_triton(seq_len, head_dim, num_heads):
-    """Benchmark tiny-flash-attention Triton implementation"""
-    from tiny_flash_attn_triton import flash_attn_triton
-    q = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    k = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    v = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    return benchmark(flash_attn_triton, q, k, v)
-
-def benchmark_flash_mla(seq_len, head_dim, num_heads):
-    """Benchmark FlashMLA implementation (requires Hopper GPU)"""
-    from flash_mla import flash_mla_v1
-    q = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    k = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    v = torch.randn(1, num_heads, seq_len, head_dim, device='cuda', dtype=torch.float16)
-    return benchmark(flash_mla_v1, q, k, v)
-
-def has_hopper_gpu():
-    """Check if Hopper GPU is available"""
-    try:
-        import torch
-        torch.cuda.get_device_name(0) == "Hopper"
-        return True
-    except:
-        return False
-
-def benchmark(func, *args, num_runs=10):
-    # 预热
-    for _ in range(3):
-        _ = func(*args)
-    torch.cuda.synchronize()
-    
-    # 测试
-    start_time = time.time()
-    for _ in range(num_runs):
-        result = func(*args)
-    torch.cuda.synchronize()
-    
-    avg_time = (time.time() - start_time) / num_runs * 1000  # ms
-    return avg_time, result
-
-def compare_implementations():
-    """对比不同实现的性能特点"""
+def comprehensive_comparison():
+    """全面的 Flash Attention 实现对比"""
     
     # 测试配置
     configs = [
@@ -224,41 +169,40 @@ def compare_implementations():
         (4096, 128, 16),  # 大规模
     ]
     
+    implementations = {
+        'naive': benchmark_naive_attention,
+        'tiny_python': benchmark_tiny_python,
+        'tiny_triton': benchmark_tiny_triton,
+        'project_triton': benchmark_project_triton,
+    }
+    
     results = {}
     for seq_len, head_dim, num_heads in configs:
-        print(f"Testing: seq_len={seq_len}, head_dim={head_dim}, num_heads={num_heads}")
+        config_results = {}
+        for name, benchmark_func in implementations.items():
+            try:
+                time_ms, memory_mb = benchmark_func(seq_len, head_dim, num_heads)
+                config_results[name] = {
+                    'time': time_ms,
+                    'memory': memory_mb,
+                    'status': 'success'
+                }
+            except Exception as e:
+                config_results[name] = {
+                    'status': 'failed',
+                    'error': str(e)
+                }
         
-        # 1. tiny-flash-attention Python 实现
-        tiny_time, _ = benchmark_tiny_python(seq_len, head_dim, num_heads)
-        
-        # 2. tiny-flash-attention Triton 实现  
-        triton_time, _ = benchmark_tiny_triton(seq_len, head_dim, num_heads)
-        
-        # 3. FlashMLA 实现 (如果有 Hopper GPU)
-        if has_hopper_gpu():
-            mla_time, _ = benchmark_flash_mla(seq_len, head_dim, num_heads)
-        else:
-            mla_time = None
-            
-        results[f"{seq_len}x{head_dim}x{num_heads}"] = {
-            'tiny_python': tiny_time,
-            'tiny_triton': triton_time, 
-            'flash_mla': mla_time,
-            'triton_speedup': tiny_time / triton_time if triton_time else None,
-            'mla_speedup': tiny_time / mla_time if mla_time else None
-        }
+        results[f"{seq_len}x{head_dim}x{num_heads}"] = config_results
     
     return results
-
-# 运行对比测试
-performance_comparison = compare_implementations()
 ```
 
 ### 学习实验建议
 1. **理论验证**：实现 Online Softmax 并验证数值正确性
 2. **性能分析**：使用 profiling 工具分析不同实现的瓶颈
 3. **参数调优**：尝试不同的块大小和配置参数
-4. **硬件对比**：在不同 GPU 上测试性能差异
+4. **算法改进**：基于理论理解实现优化版本
 
 ## 📊 学习成果检验
 
@@ -280,71 +224,71 @@ performance_comparison = compare_implementations()
 - [ ] 掌握系统级优化的基本思路
 - [ ] 能够选择适合特定场景的实现方案
 
-### 生产应用能力 (Level 4)
-- [ ] 理解 FlashMLA 的生产级特性
-- [ ] 掌握变长序列优化的核心技术
-- [ ] 了解企业级部署的考虑因素
-- [ ] 能够设计完整的性能监控方案
+### 高级应用能力 (Level 4)
+- [ ] 能够设计新的 Attention 变体
+- [ ] 掌握多种实现框架的优缺点
+- [ ] 具备解决复杂工程问题的能力
+- [ ] 理解前沿研究方向和发展趋势
 
-## 🔄 项目更新
+## 学习资源
 
-### 最新更新 (2024.12)
-- ✅ 添加 FlashMLA 生产级实现分析
-- ✅ 整合 DeepSeek 的最新优化技术
-- ✅ 更新学习路径，包含生产实践
-- ✅ 增加多硬件平台支持信息
-
-### 计划更新
-- 🔄 MLA 架构的详细数学推导
-- 🔄 Hopper GPU 特性的深度解析
-- 🔄 变长序列优化的实践案例
-- 🔄 多厂商 GPU 的性能对比
-
-## 🔗 扩展资源
-
-### 学术论文
+### 核心论文
 - [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/abs/2205.14135)
 - [FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning](https://arxiv.org/abs/2307.08691)
-- [Multi-Head Latent Attention for Neural Machine Translation](https://arxiv.org/abs/2410.04343)
 - [Online normalizer calculation for softmax](https://arxiv.org/abs/1805.02867)
 
-### 开源项目
-- [Flash Attention 官方实现](https://github.com/Dao-AILab/flash-attention)
-- [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention)
-- [FlashMLA](https://github.com/deepseek-ai/FlashMLA)
-- [Triton 官方文档](https://triton-lang.org/)
-
-### 技术博客和教程
-- [FlashMLA 技术深度解析](https://github.com/deepseek-ai/FlashMLA/blob/main/docs/20250422-new-kernel-deep-dive.md)
-- [NVIDIA Hopper 架构白皮书](https://www.nvidia.com/en-us/data-center/h100/)
+### 技术文档
 - [CUDA 编程指南](https://docs.nvidia.com/cuda/cuda-c-programming-guide/)
+- [Triton 文档](https://triton-lang.org/)
+- [Flash Attention 官方实现](https://github.com/Dao-AILab/flash-attention)
 
-## 💡 贡献和反馈
+### 性能对比
 
-本学习指南基于多个开源项目的深度分析和总结。欢迎：
+| 实现方式 | 目标场景 | 性能特点 | 学习价值 |
+|----------|----------|----------|----------|
+| **tiny-flash-attention** | 教育学习 | 清晰易懂 | ⭐⭐⭐⭐⭐ |
+| **项目实现** | 算法验证 | 渐进优化 | ⭐⭐⭐⭐ |
+| **Flash Attention 官方** | 研究开发 | 功能完整 | ⭐⭐⭐ |
 
-1. 提出具体的修改建议和内容补充
-2. 分享您的学习体验和实践心得
-3. 贡献新的实现示例和测试结果
-4. 推荐相关的学习资源和最新研究
+## 致谢
 
-## 🏆 致谢
-
-### 项目贡献者
-- **[@66RING](https://github.com/66RING)** - [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention) 教育资源
-- **[DeepSeek AI](https://github.com/deepseek-ai)** - [FlashMLA](https://github.com/deepseek-ai/FlashMLA) 生产级实现
+### 核心贡献者
+- **[@66RING](https://github.com/66RING)** - [tiny-flash-attention](https://github.com/66RING/tiny-flash-attention) 项目作者，为本学习项目提供了宝贵的教育资源
 
 ### 学术致谢
 - **Tri Dao** 等人的 Flash Attention 原创性工作
-- **DeepSeek** 团队在 MLA 架构方面的创新贡献
 - **OpenAI Triton** 团队推动的 GPU 编程革新
-- **NVIDIA** 在 CUDA 生态系统和硬件创新方面的投入
+- **NVIDIA** 在 CUDA 生态系统方面的持续投入
+
+## 使用指南
+
+### 学习建议
+1. **初学者**：从 `01_flash_attention_theory.md` 的理论文档开始
+2. **进阶者**：分析 `tiny-flash-attention` 的多种实现
+3. **工程师**：结合 FlashMLA 和 CuTLASS 学习指南进行深度学习
+
+### 实验建议
+```bash
+# 对比不同实现的性能
+cd ../../benchmarks
+python benchmark_flash_attention.py
+
+# 分析性能瓶颈
+nsys profile python flash_attention_benchmark.py
+```
+
+### 开发实践
+```bash
+# 实现自己的优化版本
+cp tiny-flash-attention/flash_attention_py/tiny_flash_attn.py my_implementation.py
+# 在此基础上进行优化和改进
+```
 
 ---
 
-**🚀 开始您的 Flash Attention 深度学习之旅！**
+🚀 **Flash Attention 算法深度学习！**
 
-从理论基础到生产实践，这套学习指南将帮助您系统掌握现代高性能 GPU 编程的核心技术。建议从 [理论原理详解](./01_flash_attention_theory.md) 开始，建立扎实的理论基础。
+本指南专注于 Flash Attention 算法本身的理论和实现，为您提供从数学原理到代码实现的完整学习路径。
 
-*最后更新：2024年12月 - 新增 FlashMLA 生产级实现分析*
+*最后更新：2024年12月 - 调整项目结构，专注于 Flash Attention 算法*
 
