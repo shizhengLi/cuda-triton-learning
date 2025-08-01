@@ -1,3 +1,7 @@
+#cuda, cpp, build
+build_cuda/
+cmake/
+
 
 # 敏感信息
 .env
