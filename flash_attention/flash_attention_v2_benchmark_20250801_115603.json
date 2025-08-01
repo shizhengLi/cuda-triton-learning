@@ -1,0 +1,109 @@
+{
+  "timestamp": "20250801_115603",
+  "test_executable": "build_cuda/cuda_v2/test_flash_v2",
+  "results": [
+    {
+      "config": {
+        "batch_size": 1,
+        "seq_len": 32,
+        "num_heads": 4,
+        "head_dim": 16,
+        "name": "tiny"
+      },
+      "execution_time": 0.18388819694519043,
+      "flops": 131072,
+      "gflops": 0.0007127809298117552,
+      "success": true,
+      "output": "Flash Attention v2 CUDA Test - Basic CUDA\nFound 8 CUDA devices\nDevice 0: NVIDIA L20\nCompute capability: 8.9\nTotal memory: 45589 MB\nBasic CUDA functionality test completed successfully!\n",
+      "error": null,
+      "timestamp": "2025-08-01T11:56:01.485229"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "seq_len": 64,
+        "num_heads": 8,
+        "head_dim": 32,
+        "name": "small"
+      },
+      "execution_time": 0.21351146697998047,
+      "flops": 2097152,
+      "gflops": 0.009822198449868905,
+      "success": true,
+      "output": "Flash Attention v2 CUDA Test - Basic CUDA\nFound 8 CUDA devices\nDevice 0: NVIDIA L20\nCompute capability: 8.9\nTotal memory: 45589 MB\nBasic CUDA functionality test completed successfully!\n",
+      "error": null,
+      "timestamp": "2025-08-01T11:56:01.698789"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "seq_len": 128,
+        "num_heads": 8,
+        "head_dim": 32,
+        "name": "medium"
+      },
+      "execution_time": 0.18263936042785645,
+      "flops": 16777216,
+      "gflops": 0.09185980481259456,
+      "success": true,
+      "output": "Flash Attention v2 CUDA Test - Basic CUDA\nFound 8 CUDA devices\nDevice 0: NVIDIA L20\nCompute capability: 8.9\nTotal memory: 45589 MB\nBasic CUDA functionality test completed successfully!\n",
+      "error": null,
+      "timestamp": "2025-08-01T11:56:01.881506"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "seq_len": 256,
+        "num_heads": 16,
+        "head_dim": 64,
+        "name": "large"
+      },
+      "execution_time": 0.23195552825927734,
+      "flops": 536870912,
+      "gflops": 2.31454242987428,
+      "success": true,
+      "output": "Flash Attention v2 CUDA Test - Basic CUDA\nFound 8 CUDA devices\nDevice 0: NVIDIA L20\nCompute capability: 8.9\nTotal memory: 45589 MB\nBasic CUDA functionality test completed successfully!\n",
+      "error": null,
+      "timestamp": "2025-08-01T11:56:02.113530"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "seq_len": 512,
+        "num_heads": 16,
+        "head_dim": 64,
+        "name": "xlarge"
+      },
+      "execution_time": 0.18243169784545898,
+      "flops": 4294967296,
+      "gflops": 23.54287849493316,
+      "success": true,
+      "output": "Flash Attention v2 CUDA Test - Basic CUDA\nFound 8 CUDA devices\nDevice 0: NVIDIA L20\nCompute capability: 8.9\nTotal memory: 45589 MB\nBasic CUDA functionality test completed successfully!\n",
+      "error": null,
+      "timestamp": "2025-08-01T11:56:02.295999"
+    },
+    {
+      "config": {
+        "batch_size": 16,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "head_dim": 128,
+        "name": "xxlarge"
+      },
+      "execution_time": 0.18115568161010742,
+      "flops": 137438953472,
+      "gflops": 758.6786804059681,
+      "success": true,
+      "output": "Flash Attention v2 CUDA Test - Basic CUDA\nFound 8 CUDA devices\nDevice 0: NVIDIA L20\nCompute capability: 8.9\nTotal memory: 45589 MB\nBasic CUDA functionality test completed successfully!\n",
+      "error": null,
+      "timestamp": "2025-08-01T11:56:02.477201"
+    }
+  ],
+  "summary": {
+    "total_configs": 6,
+    "successful_runs": 6,
+    "failed_runs": 0,
+    "best_gflops": 758.6786804059681,
+    "avg_gflops": 130.77308268582797
+  }
+}

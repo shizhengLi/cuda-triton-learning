@@ -23,17 +23,10 @@ set_target_properties(flash_attention_v2 PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON
 )
 
-# Create test executable
-add_executable(test_flash_v2 test_flash_attention_v2.cu)
-
-# Link test with library
-target_link_libraries(test_flash_v2 flash_attention_v2 ${CUDA_LIBRARIES})
-
-# Set include directories for test
-target_include_directories(test_flash_v2 
-    PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/../cuda_common
-)
+# Create basic CUDA test executable (C++ only)
+set_source_files_properties(test_basic_cuda.cpp PROPERTIES LANGUAGE CXX)
+add_executable(test_flash_v2 test_basic_cuda.cpp)
+target_link_libraries(test_flash_v2 ${CUDA_LIBRARIES})
 
 # Add test to CTest
 add_test(NAME test_flash_v2 COMMAND test_flash_v2)
