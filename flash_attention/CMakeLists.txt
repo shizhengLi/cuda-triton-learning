@@ -26,9 +26,9 @@ find_package(Python COMPONENTS Interpreter Development REQUIRED)
 # Testing
 enable_testing()
 
-# Add subdirectories (commented out v2 for now)
+# Add subdirectories
 add_subdirectory(cuda_v1)
-# add_subdirectory(cuda_v2)
+add_subdirectory(cuda_v2)
 
 # Configure tests
 configure_file(
