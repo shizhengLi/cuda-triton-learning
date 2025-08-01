@@ -116,10 +116,10 @@ def layernorm(
     # For now, only support 2D tensors along last axis
     if x.dim() != 2 or axis != 1:
         # Fallback to PyTorch implementation for complex cases
-        # We need to handle the case where weight/bias dimensions don't match normalized_shape
-        if weight is not None or bias is not None:
-            # For simplicity, just use PyTorch's layer_norm without weight/bias for complex cases
-            return torch.nn.functional.layer_norm(x, x.shape[axis:], None, None, eps)
+        # For simplicity, just use PyTorch's layer_norm without weight/bias for complex cases
+        if axis == 0 and x.dim() == 2:
+            # For 2D tensor with axis=0, transpose, normalize, then transpose back
+            return torch.nn.functional.layer_norm(x.T, (x.shape[0],), None, None, eps).T
         else:
             return torch.nn.functional.layer_norm(x, x.shape[axis:], None, None, eps)
     
