@@ -153,7 +153,7 @@ The test suite includes 17 comprehensive test cases:
 ### Test Tolerances
 
 - **float32**: `atol=1e-6, rtol=1e-6`
-- **float16/bfloat16**: `atol=1e-3, rtol=1e-3`
+- **float16/bfloat16**: `atol=1e-2, rtol=1e-2`
 - **Non-power-of-2**: `atol=1e-1, rtol=1e-1`
 
 ## Usage Examples
