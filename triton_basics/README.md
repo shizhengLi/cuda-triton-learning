@@ -1,0 +1,141 @@
+# Triton算子开发学习路径 - OpenAI面试准备
+
+## 项目概述
+
+本项目旨在系统学习Triton算子开发，重点关注LLM、NLP、Transformer架构相关的高性能计算优化，为OpenAI面试做准备。
+
+## 学习目标
+
+1. **掌握Triton编程基础** - 理解GPU并行计算模型、Triton编程范式
+2. **实现核心算子** - 从基础到复杂的深度学习算子
+3. **性能优化技能** - 内存访问优化、计算优化、硬件特性利用
+4. **LLM相关算子** - Attention、LayerNorm、RMSNorm、优化器等
+5. **项目实战经验** - 结合Flash Attention等实际项目
+
+## 学习路径规划
+
+### 第一阶段：Triton基础 (Week 1-2)
+- [ ] Triton环境搭建和基础概念
+- [ ] 向量加法、矩阵乘法等基础算子
+- [ ] 内存访问模式优化
+- [ ] 基础性能分析工具使用
+
+### 第二阶段：核心深度学习算子 (Week 3-4)
+- [ ] Softmax、LayerNorm、RMSNorm
+- [ ] Activation函数 (ReLU, GELU, SiLU)
+- [ ] Dropout、BatchNorm等正则化算子
+- [ ] 性能对比和优化
+
+### 第三阶段：Attention机制 (Week 5-6)
+- [ ] 标准Attention实现
+- [ ] Flash Attention优化
+- [ ] 多头Attention (MHA)
+- [ ] 分组查询Attention (GQA)
+
+### 第四阶段：优化器实现 (Week 7-8)
+- [ ] SGD、Momentum基础优化器
+- [ ] Adam优化器深入理解
+- [ ] Muon优化器研究与实现
+- [ ] 8-bit优化器 (Adam8bit, Lion8bit)
+
+### 第五阶段：高级主题 (Week 9-10)
+- [ ] 量化算子 (FP8, INT8)
+- [ ] 稀疏矩阵计算
+- [ ] 分布式训练相关算子
+- [ ] 自定义CUDA kernel与Triton混合编程
+
+### 第六阶段：项目实战 (Week 11-12)
+- [ ] 完整Transformer层实现
+- [ ] LLM推理优化
+- [ ] 性能基准测试
+- [ ] 面试准备项目
+
+## 技术栈
+
+- **编程语言**: Python, Triton, CUDA C++
+- **深度学习框架**: PyTorch
+- **硬件**: NVIDIA GPU (A100/H100 preferred)
+- **工具**: Nsight Systems, Nsight Compute, PyTorch Profiler
+
+## 项目结构
+
+```
+triton_basics/
+├── 01_basics/                    # 基础算子
+│   ├── vector_operations/        # 向量操作
+│   ├── matrix_operations/        # 矩阵操作
+│   └── memory_patterns/          # 内存访问模式
+├── 02_dl_kernels/                # 深度学习核心算子
+│   ├── normalization/            # 归一化层
+│   ├── activations/              # 激活函数
+│   └── regularization/           # 正则化
+├── 03_attention/                 # Attention机制
+│   ├── standard_attention/       # 标准Attention
+│   ├── flash_attention/          # Flash Attention
+│   └── optimized_variants/       # 优化变体
+├── 04_optimizers/                # 优化器
+│   ├── classical_optimizers/     # 经典优化器
+│   ├── adam_variants/           # Adam变体
+│   └── muon_optimizer/          # Muon优化器
+├── 05_advanced/                  # 高级主题
+│   ├── quantization/            # 量化
+│   ├── sparse_operations/       # 稀疏计算
+│   └── distributed/             # 分布式
+├── 06_projects/                  # 项目实战
+│   ├── transformer_layer/       # Transformer层
+│   ├── llm_inference/           # LLM推理
+│   └── benchmark_suite/         # 性能测试
+├── docs/                         # 文档
+├── tests/                        # 测试
+└── utils/                        # 工具函数
+```
+
+## OpenAI面试重点
+
+### 核心技能要求
+1. **GPU编程精通** - CUDA、Triton、性能优化
+2. **深度学习算子** - 理论基础和实现经验
+3. **LLM架构理解** - Transformer、Attention机制
+4. **性能分析能力** - 识别瓶颈、优化策略
+5. **工程实践** - 代码质量、测试、文档
+
+### 面试准备建议
+1. **项目经验** - 准备2-3个高质量项目
+2. **算法基础** - 复习核心算法和数据结构
+3. **系统设计** - 大规模训练系统设计
+4. **最新研究** - 关注顶会论文和行业动态
+5. **编码能力** - 白板编程和实际编码
+
+## 学习资源
+
+### 官方文档
+- [Triton Documentation](https://triton-lang.org/main/)
+- [PyTorch Documentation](https://pytorch.org/docs/stable/)
+- [CUDA Programming Guide](https://docs.nvidia.com/cuda/)
+
+### 推荐论文
+- "Flash Attention: Fast and Memory-Efficient Exact Attention"
+- "Triton: An Intermediate Language and Compiler for Tiled GPGPU Operations"
+- "Muon Optimizer: Scaling LLM Training to Trillion Parameters"
+- "8-bit Optimizers via Block-wise Quantization"
+
+### 实践项目
+- [Flash Attention实现](../flash_attention/)
+- [Hugging Face Transformers](https://github.com/huggingface/transformers)
+- [NVIDIA Megatron-LM](https://github.com/NVIDIA/Megatron-LM)
+
+## 开始学习
+
+1. 环境准备
+2. 基础概念学习
+3. 代码实践
+4. 性能优化
+5. 项目实战
+
+## 进度跟踪
+
+使用项目管理系统跟踪学习进度，定期回顾和调整计划。
+
+---
+
+**注意**: 本项目需要较强的数学基础和编程能力，建议循序渐进，理论与实践相结合。
