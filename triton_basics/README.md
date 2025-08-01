@@ -41,10 +41,12 @@
 - [x] 内存访问模式优化
 
 ### 第二阶段：核心深度学习算子 (Week 3-4)
-- [ ] Softmax、LayerNorm、RMSNorm
+- [x] Softmax、LayerNorm、RMSNorm
 - [x] Activation函数 (ReLU, GELU, SiLU)
 
 ### 第三阶段：Attention机制 (Week 5-6)
+
+- 这部分跳过，别的地方已经实现过flash attn。
 - [ ] 标准Attention实现
 - [ ] Flash Attention优化
 - [ ] 多头Attention (MHA)
