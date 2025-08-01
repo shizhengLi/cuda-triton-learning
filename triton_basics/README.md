@@ -18,13 +18,10 @@
 - [ ] Triton环境搭建和基础概念
 - [ ] 向量加法、矩阵乘法等基础算子
 - [ ] 内存访问模式优化
-- [ ] 基础性能分析工具使用
 
 ### 第二阶段：核心深度学习算子 (Week 3-4)
 - [ ] Softmax、LayerNorm、RMSNorm
 - [ ] Activation函数 (ReLU, GELU, SiLU)
-- [ ] Dropout、BatchNorm等正则化算子
-- [ ] 性能对比和优化
 
 ### 第三阶段：Attention机制 (Week 5-6)
 - [ ] 标准Attention实现
@@ -33,7 +30,6 @@
 - [ ] 分组查询Attention (GQA)
 
 ### 第四阶段：优化器实现 (Week 7-8)
-- [ ] SGD、Momentum基础优化器
 - [ ] Adam优化器深入理解
 - [ ] Muon优化器研究与实现
 - [ ] 8-bit优化器 (Adam8bit, Lion8bit)
